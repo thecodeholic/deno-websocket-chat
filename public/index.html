@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Chat app with Deno</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
+        rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" 
+        rel="stylesheet" >
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+  <div class="container welcome-screen">
+    <h2>Welcome to DenoChat</h2>
+    <p>There are <b id="onlineUserCount">2500</b> users online</p>
+    <input id="inputNickname" type="text" placeholder="Enter your name">
+    <button id="sendNickName">Send</button>
+  </div>
+  
+  <script src="client.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
+.container {
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+}
