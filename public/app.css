@@ -5,9 +5,9 @@
 }
 
 :root {
-  --main-color: #53b9b9;
+  --main-color: #3b474d;
   --main-color-light: #89ebeb;
-  --main-color-dark: #309494;
+  --main-color-dark: #263238;
 }
 
 html, body {
@@ -17,9 +17,11 @@ html, body {
 body {
   font-family: Roboto, sans-serif;
 }
+
 .input-group {
   margin-bottom: 20px;
 }
+
 input[type='text'] {
   outline: 0;
   display: block;
@@ -27,19 +29,23 @@ input[type='text'] {
   padding: 6px 10px;
   border: 2px solid rgb(209, 209, 209);
   transition: all 0.3s;
-  border-radius: 4px;;
 }
 
 input[type='text']:focus {
-  border: 2px solid var(--main-color-dark);
+  border: 2px solid rgb(184, 184, 184);
 }
 
 button {
-  float: right;
   outline: 0;
   padding: 6px 10px;
   border: 1px solid var(--main-color);
   background-color: #FFF;
+}
+
+button:active {
+  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.3);
+  position: relative;
+  top: 1px;
 }
 
 .page-login {
@@ -52,14 +58,24 @@ button {
   width: 400px;
   color: white;
   margin: 0 auto;
-  padding: 30px;
   background-color: var(--main-color);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
 }
 
+.login-form .form-header, .login-form .form-footer {
+  background-color: var(--main-color-dark);
+}
+
+.login-form .form-header, .login-form .form-content, .login-form .form-footer {
+  padding: 15px;
+}
+
+.login-form .form-footer {
+  text-align: right;
+}
+
 .login-form h2 {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .login-form .category-item {
@@ -68,6 +84,86 @@ button {
   width: 100%;
   padding-left: 20px;
 }
-.login-form .category-item input{
-  /* display: none; */
+
+/* Chat page */
+.chat-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  color: #FFF;
+  background-color: var(--main-color);
+  overflow: hidden;
+}
+
+.chat-header, .chat-sidebar, .chat-footer {
+  padding: 15px;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+}
+
+.chat-header .group-name {
+  flex: 1;
+}
+
+.chat-header .online-users {
+  width: 200px;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-sidebar {
+  width: 240px;
+  height: 100%;
+  background-color: var(--main-color-dark);
+}
+
+.chat-sidebar h3 {
+  margin-bottom: 20px;
+}
+
+.chat-sidebar .chat-user {
+  padding: 10px 4px;
+}
+
+.chat-messages {
+  flex: 1;
+  background-color: #FFF;
+  color: var(--main-color-dark);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.chat-messages .message {
+  border-radius: 8px;
+  align-self: flex-start;
+  padding: 6px 10px;
+  background-color: #dedede;
+  margin-bottom: 10px;
+}
+
+.chat-messages .message .message-text {
+  font-size: 80%;
+}
+
+.chat-messages .message.message-to {
+  background-color: var(--main-color);
+  color: #FFF;
+  align-self: flex-end;
+}
+
+.chat-footer form {
+  display: flex;
 }

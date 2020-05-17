@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Chat app with Deno</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
-        rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" 
-        rel="stylesheet" >
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
 </head>
+
 <body>
 
-  <div class="container welcome-screen">
-    <h2>Welcome to DenoChat</h2>
-    <p>There are <b id="onlineUserCount">2500</b> users online</p>
-    <input id="inputNickname" type="text" placeholder="Enter your name">
-    <button id="sendNickName">Send</button>
+  <div class="chat-container">
+    <div class="chat-sidebar">
+      <h3>Room users (<span id="chatUsersCount">123</span>)</h3>
+      <div id="chatUsers" class="chat-users">
+        <div class="chat-user">John</div>
+        <div class="chat-user">James</div>
+        <div class="chat-user">Mary</div>
+      </div>
+    </div>
+    <div class="chat-main">
+      <div class="chat-header">
+        <div id="groupName" class="group-name">
+          Javascript
+        </div>
+        <div>
+          <button id="leaveGroupBtn">Leave group</button>
+        </div>
+      </div>
+      <div class="chat-messages">
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-from">
+          <h4>John</h4>
+          <p class="message-text">Lorem ipsum smth</p>
+        </div>
+        <div class="message message-to">
+          <p class="message-text">Hi</p>
+        </div>
+      </div>
+      <div class="chat-footer">
+        <form id="messageSendForm">
+          <input type="text" placeholder="Type message and hit enter">
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
   </div>
-  
+  </div>
+
   <script src="client.js"></script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,35 @@
 
   <link rel="stylesheet" href="app.css">
 </head>
+
 <body class="page-login">
   <form action="index.html" class="login-form">
-    <h2>DenoChat</h2>
-    <div class="input-group">
-      <input type="text" placeholder="Enter your name" name="name">
+    <div class="form-header">
+      <h2>DenoChat</h2>
     </div>
+    <div class="form-content">
+      <div class="input-group">
+        <input type="text" placeholder="Enter your name" name="name">
+      </div>
 
-    <p><b>Choose a group to join</b></p>
-    <label for="cooking" class="category-item">
-      <input id="cooking" type="radio" name="room" value="cooking"> Javascript
-    </label>
-    <label for="node" class="category-item">
-      <input id="node" type="radio" name="room" value="node"> Node.js
-    </label>
-    <label for="deno" class="category-item">
-      <input id="deno" type="radio" name="room" value="deno"> Deno
-    </label>
-    <label for="php" class="category-item">
-      <input id="php" type="radio" name="room" value="php"> PHP
-    </label>
-
-    <button id="joinChatBtn">Login</button>
+      <label>Choose a group to join</label>
+      <label for="cooking" class="category-item">
+        <input id="cooking" type="radio" name="room" value="cooking"> Javascript
+      </label>
+      <label for="node" class="category-item">
+        <input id="node" type="radio" name="room" value="node"> Node.js
+      </label>
+      <label for="deno" class="category-item">
+        <input id="deno" type="radio" name="room" value="deno"> Deno
+      </label>
+      <label for="php" class="category-item">
+        <input id="php" type="radio" name="room" value="php"> PHP
+      </label>
+    </div>
+    <div class="form-footer">
+      <button id="joinChatBtn">Login</button>
+    </div>
   </form>
 </body>
+
 </html>
