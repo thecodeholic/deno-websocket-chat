@@ -6,15 +6,17 @@ let inputNickname = document.querySelector('#inputNickname');
 btnNickname.onclick = (ev) => {
   const data = {event: 'join', nickname: inputNickname.value};
   ws.send(JSON.stringify(data));
+  inputNickname.value = '';
 }
 
 const onMessageReceive = (ev) => {
+  console.log("Event received ", ev);
   const data = JSON.parse(ev.data);
   if (data.event === 'onlineUsers'){
     elOnlineUsers.innerHTML = data.count;
   }
 }
 window.addEventListener('DOMContentLoaded', () => {
-  ws = new WebSocket(`ws://127.0.0.1:3000/ws`);
+  ws = new WebSocket(`ws://localhost:3000/ws`);
   ws.addEventListener('message', onMessageReceive);
 })
