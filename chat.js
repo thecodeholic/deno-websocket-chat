@@ -4,22 +4,37 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 
 /**
  * userId: {
+ *    userId: string,
  *    name: string,
  *    groupName: string,
  *    ws: WebSocket
  * }
  */
 const usersMap = new Map();
+
 /**
  * groupName: [user1, user2]
  * 
- * user  --- {
+ * {
  *    userId: string,
  *    name: string,
+ *    groupName: string,
  *    ws: WebSocket
  * }
  */
 const groupsMap = new Map();
+
+/**
+ * groupName: [message1,message2]
+ * 
+ * {
+ *    userId: string,
+ *    name: string,
+ *    message: string
+ * }
+ * 
+ */
+const messagesMap = new Map();
 
 // This is called when user is connected
 export default async function chat(ws) {
@@ -28,78 +43,117 @@ export default async function chat(ws) {
 
   // Listening of WebSocket events
   for await (let data of ws) {
-    data = typeof data === "string" ? JSON.parse(data) : data;
+    const event = typeof data === "string" ? JSON.parse(data) : data;
 
     // If event is close,
     if (isWebSocketCloseEvent(data)) {
       // Take out user from usersMap
-      const userObj = usersMap.get(userId);
-      if (!userObj) {
-        break;
-      }
-      console.log(`User left`);
-      // Take out users from groupsMap
-      let users = groupsMap.get(userObj.groupName);
-      console.log(`Users in group ${userObj.groupName}. ${users.length}`);
-      // If users exist remove current user from users and write users back into groupsMap
-      if (users) {
-        console.log("Removing user");
-        users = users.filter(u => u.userId !== userId);
-        console.log(`After remove ${users.length}`);
-        groupsMap.set(userObj.groupName, users);
-      }
-      // Remove userId from usersMap
-      usersMap.delete(userId);
-      console.log(`User left. emitting...`);
-      // Emit to remaining users updated list of users
-      emitUsers(userObj.groupName);
+      leaveGroup(userId);
       break;
     }
 
+    let userObj;
     // Check received data.event
-    switch (data.event) {
+    switch (event.event) {
       // If it is join
       case "join":
         // Create userObj with ws, groupName and name
-        const userObj = {
+        userObj = {
           userId,
+          name: event.name,
+          groupName: event.groupName,
           ws,
-          groupName: data.groupName,
-          name: data.name,
         };
+
         // Put userObj inside usersMap
         usersMap.set(userId, userObj);
 
         // Take out users from groupsMap
-        const users = groupsMap.get(data.groupName) || [];
+        const users = groupsMap.get(event.groupName) || [];
         users.push(userObj);
-        groupsMap.set(data.groupName, users);
-        console.log(`User joined. emitting...`);
+        groupsMap.set(event.groupName, users);
+
         // Emit to all users in this group that new user joined.
-        emitUsers(data.groupName);
+        emitUserList(event.groupName);
+        // Emit all previous messages sent in this group to newly joined user
+        emitPreviousMessages(event.groupName, ws);
+        break;
+      // If it is message receive
+      case "message":
+        userObj = usersMap.get(userId);
+        const message = {
+          userId,
+          name: userObj.name,
+          message: event.data,
+        };
+        const messages = messagesMap.get(userObj.groupName) || [];
+        messages.push(message);
+        messagesMap.set(userObj.groupName, messages);
+        emitMessage(userObj.groupName, message, userId);
         break;
     }
   }
 }
 
-function emitUsers(groupName) {
+function emitUserList(groupName) {
   // Get users from groupsMap
-  const users = groupsMap.get(groupName);
+  const users = groupsMap.get(groupName) || [];
   // Iterate over users and send list of users to every user in the group
   for (const user of users) {
-    user.ws.send(
-      JSON.stringify({ event: "users", data: getDisplayUsers(groupName) }),
-    );
+    const event = {
+      event: "users",
+      data: getDisplayUsers(groupName),
+    };
+    user.ws.send(JSON.stringify(event));
   }
 }
 
 function getDisplayUsers(groupName) {
   const users = groupsMap.get(groupName) || [];
-  return users
-    .map(u => {
-      return {
-        userId: u.id,
-        name: u.name,
-      };
-    });
+  return users.map((u) => {
+    return { userId: u.userId, name: u.name };
+  });
+}
+
+function emitMessage(groupName, message, senderId) {
+  const users = groupsMap.get(groupName) || [];
+  for (const user of users) {
+    const tmpMessage = {
+      ...message,
+      sender: user.userId === senderId ? "me" : senderId,
+    };
+    const event = {
+      event: "message",
+      data: tmpMessage,
+    };
+    user.ws.send(JSON.stringify(event));
+  }
+}
+
+function emitPreviousMessages(groupName, ws) {
+  const messages = messagesMap.get(groupName) || [];
+
+  const event = {
+    event: "previousMessages",
+    data: messages,
+  };
+  ws.send(JSON.stringify(event));
+}
+
+function leaveGroup(userId) {
+  // Take out users from groupsMap
+  const userObj = usersMap.get(userId);
+  if (!userObj) {
+    return;
+  }
+  let users = groupsMap.get(userObj.groupName) || [];
+
+  // Remove current user from users and write users back into groupsMap
+  users = users.filter((u) => u.userId !== userId);
+  groupsMap.set(userObj.groupName, users);
+
+  // Remove userId from usersMap
+  usersMap.delete(userId);
+
+  emitUserList(userObj.groupName);
 }

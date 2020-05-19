@@ -15,11 +15,8 @@
 
   <div class="chat-container">
     <div class="chat-sidebar">
-      <h3>Room users (<span id="chatUsersCount">123</span>)</h3>
+      <h3>Room users (<span id="chatUsersCount"></span>)</h3>
       <div id="chatUsers" class="chat-users">
-        <div class="chat-user">John</div>
-        <div class="chat-user">James</div>
-        <div class="chat-user">Mary</div>
       </div>
     </div>
     <div class="chat-main">
@@ -31,46 +28,11 @@
           <button id="leaveGroupBtn">Leave group</button>
         </div>
       </div>
-      <div class="chat-messages">
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-from">
-          <h4>John</h4>
-          <p class="message-text">Lorem ipsum smth</p>
-        </div>
-        <div class="message message-to">
-          <p class="message-text">Hi</p>
-        </div>
+      <div id="chatMessages" class="chat-messages">
       </div>
       <div class="chat-footer">
         <form id="messageSendForm">
-          <input type="text" placeholder="Type message and hit enter">
+          <input id="messageInput" type="text" placeholder="Type message and hit enter">
           <button>Send</button>
         </form>
       </div>
