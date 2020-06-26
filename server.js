@@ -1,5 +1,5 @@
-import { listenAndServe } from "https://deno.land/std/http/server.ts";
-import { acceptWebSocket, acceptable } from "https://deno.land/std/ws/mod.ts";
+import { listenAndServe } from "https://deno.land/std@0.58.0/http/server.ts";
+import { acceptWebSocket, acceptable } from "https://deno.land/std@0.58.0/ws/mod.ts";
 import chat from "./chat.js";
 
 listenAndServe({ port: 3000 }, async (req) => {
