@@ -1,6 +1,7 @@
 import { listenAndServe } from "https://deno.land/std@0.58.0/http/server.ts";
 import { serveFile } from "https://deno.land/std@0.58.0/http/file_server.ts";
 import { acceptWebSocket, acceptable } from "https://deno.land/std@0.58.0/ws/mod.ts";
+import { parse } from "https://deno.land/std@0.59.0/flags/mod.ts";
 import chat from "./chat.js";
 
 async function fileExists(path) {
@@ -16,7 +17,11 @@ async function fileExists(path) {
   }
 }
 
-listenAndServe({ port: 3000 }, async (req) => {
+const DEFAULT_PORT = 3000;
+const argPort = parse(Deno.args).port;
+const port = argPort ? parseInt(argPort) : DEFAULT_PORT
+
+listenAndServe({ port: port }, async (req) => {
 
   const position = req.url.indexOf('?');
 
