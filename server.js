@@ -22,12 +22,15 @@ const argPort = parse(Deno.args).port;
 const port = argPort ? parseInt(argPort) : DEFAULT_PORT
 
 listenAndServe({ port: port }, async (req) => {
+  let url = req.url;
+  if (req.method === 'GET' && url === '/') {
+    url = '/index.html';
+  }
 
   const position = req.url.indexOf('?');
-
-  let url = req.url;
+  
   if (position > -1) {
-    url = req.url.substring(0, position);
+    url = url.substring(0, position);
   }
   const path = `${Deno.cwd()}/public${url}`; // /index.html
   if (await fileExists(path)) {
@@ -47,4 +50,4 @@ listenAndServe({ port: port }, async (req) => {
     }
   }
 });
-console.log("Server started on port 3000");
+console.log(`Server started on port ${port}`);
