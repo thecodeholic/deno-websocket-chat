@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { isWebSocketCloseEvent } from "https://deno.land/std/ws/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { isWebSocketCloseEvent } from "https://deno.land/std@0.58.0/ws/mod.ts";
+import { v4 } from "https://deno.land/std@0.58.0/uuid/mod.ts";
 
 /**
  * userId: {
