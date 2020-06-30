@@ -2,11 +2,7 @@
 
 ## Demo
 
-### Join to chat page
-![Chat join page](https://i.imgur.com/BCXT0Ba.png)
-
-### Chat page
-![Chat page](https://i.imgur.com/h0FE6pY.png)
+#### Check [the following link](https://deno-websocket-chat.herokuapp.com/chat.html) to see deployed version on heroku
 
 --------------------
 
@@ -15,8 +11,8 @@ You need to have [Deno installed](https://deno.land/#installation) in order to r
 
 1. Clone the repository
 2. Go to the project root using terminal
-3. Run `deno run --allow-net server.js`
-4. Open `public/chat.html` in browser
+3. Run `deno run --allow-net --allow-read server.js`
+4. Open http://localhost:3000/chat.html` in browser
 5. That's all.
 
 
