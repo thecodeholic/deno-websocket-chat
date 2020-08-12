@@ -9,7 +9,7 @@ let leaveGroupBtn = document.querySelector("#leaveGroupBtn");
 let groupName = document.querySelector("#groupName");
 
 window.addEventListener("DOMContentLoaded", () => {
-  ws = new WebSocket(`ws://localhost:3000/ws`);
+  ws = new WebSocket(`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/ws`);
   ws.addEventListener("open", onConnectionOpen);
   ws.addEventListener("message", onMessageReceived);
 });
@@ -28,14 +28,14 @@ sendMessageForm.onsubmit = (ev) => {
 };
 
 leaveGroupBtn.onclick = () => {
-  window.location.href = 'chat.html';
+  window.location.href = '/';
 }
 
 function onConnectionOpen() {
   console.log(`Connection Opened`);
   const queryParams = getQueryParams();
   if (!queryParams.name || !queryParams.group) {
-    window.location.href = "chat.html";
+    window.location.href = "/";
     return;
   }
   groupName.innerHTML = queryParams.group;
