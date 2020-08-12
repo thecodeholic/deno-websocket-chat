@@ -84,7 +84,7 @@ function appendMessage(message) {
     message.sender === "me" ? "to" : "from"
   }`;
   messageEl.innerHTML = `
-        <h4>${message.name}</h4>
+        ${message.sender === "me" ? "" : `<h4>${message.name}</h4>`}
         <p class="message-text">${message.message}</p>
       `;
   chatMessagesCtr.appendChild(messageEl);
